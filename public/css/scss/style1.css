@@ -1,0 +1,371 @@
+.assignDetails {
+            width: 400px;
+            height: 210px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 600;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: right;
+            color: #999999;
+        }
+        
+        .postName {
+            width: 260px;
+            border-style: solid;
+            border-color: #999999;
+            padding-left: 5px;
+        }
+        
+        .postTitle {
+            width: 260px;
+            border-style: solid;
+            border-color: #999999;
+            padding-left: 5px;
+            margin-top: 10px;
+        }
+        
+        .postComment {
+            width: 260px;
+            height: 50px;
+            margin-top: 10px;
+            padding-left: 5px;
+        }
+        
+        .postBtn {
+            position: relative;
+            float: right;
+            width: 100px;
+            border-radius: 0;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+        
+        .post {
+            width: 710px;
+            height: 116px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 18.3px;
+            padding-left: 20.4px;
+            margin-top: 20px;
+            padding-right: 20px;
+        }
+        
+        .postbox {
+            width: 668.6px;
+            height: 44.9px;
+            background-color: #f2f2f2;
+            font-size: 13.1px;
+            border-style: none;
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+        
+        .postbtn {
+            width: 62.8px;
+            height: 30px;
+            font-size: 12px;
+            border-radius: 0;
+        }
+        
+        .btnSec {
+            display: inline-block;
+            width: 100%;
+            text-align: right;
+        }
+        
+        .discCard {
+            width: 710px;
+            height: 290px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 29.1px;
+            margin-top: 20px;
+        }
+        
+        .propic {
+            height: 29.8px;
+            margin-top: -18px;
+        }
+        
+        .poster {
+            display: inline-block;
+        }
+        
+        .posterName {
+            font-size: 13.1px;
+            font-weight: 600;
+            color: #16aed5;
+        }
+        
+        .posterDate {
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .cardContent {
+            margin-top: 14.9px;
+        }
+        
+        .contentHeading {
+            font-size: 13.1px;
+            font-weight: 600;
+            color: #535353;
+        }
+        
+        .commentCount {
+            width: 87.2px;
+            height: 20px;
+            border: solid 1px #f2f2f2;
+            margin-top: 16.4px;
+        }
+        
+        .staticComment {
+            width: 65px;
+            height: 100%;
+            font-size: 10.6px;
+            font-weight: 600;
+            color: #a4a4a4;
+            border-right: solid 1px #f2f2f2;
+            display: inline-block;
+        }
+        
+        .commentCounter {
+            font-size: 10.6px;
+            font-weight: 600;
+            color: #6d6d6d;
+            display: inline-block;
+        }
+        
+        .binIcon {
+            display: inline-block;
+            position: relative;
+            float: right;
+            margin-right: 20px;
+        }
+        
+        .postComment {
+            width: 710.1px;
+            height: 131.1px;
+            background-color: #f9f9f9;
+        }
+        
+        .postComment {
+            margin-top: 10px;
+            width: 100%;
+            padding-top: 13.4px;
+            padding-right: 33.8px;
+        }
+        
+        .cardHeader {
+            margin-left: 32.8px;
+        }
+        
+        .cardContent {
+            margin-left: 32.8px;
+        }
+        
+        .commentPic {
+            height: 22.8px;
+            display: inline-block;
+            margin-top: -20px;
+            margin-right: 10px;
+        }
+        
+        .commentName {
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .commentTime {
+            position: relative;
+            float: right;
+            font-weight: 600;
+        }
+        
+        .comment {
+            display: inline-block;
+        }
+        
+        .commentInput {
+            width: 646px;
+            height: 29.6px;
+            background-color: #ffffff;
+            border-style: none;
+            font-weight: 600;
+            margin-top: -10px;
+            font-size: 13.1px;
+            letter-spacing: -0.4px;
+            color: #878787;
+            padding-left: 10px;
+        }
+        
+        .tabSelector {
+            width: 233px;
+            height: 29px;
+            border: solid 1px #a9a9a9;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+        }
+        
+        .filesTab {
+            font-size: 12.9px;
+            font-weight: 600;
+            color: #a9a9a9;
+            display: inline-block;
+            width: 113px;
+            height: 29px;
+            padding-left: 44px;
+            padding-top: 4px;
+        }
+        
+        .assignmentsTab {
+            border-left-style: solid;
+            border-left-width: 1px;
+            border-left-color: #a9a9a9;
+            font-size: 12.9px;
+            font-weight: 600;
+            color: #ffffff;
+            display: inline-block;
+            width: 114px;
+            height: 27px;
+            padding-left: 17px;
+            padding-top: 4px;
+        }
+        
+        .assignmentCard {
+            margin-top: 20px;
+            width: 709.9px;
+            height: 261.1px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .assignPic {
+            margin-top: 26.1px;
+            margin-left: 26.8px;
+            height: 43px;
+            width: 43px;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+        
+        .assignText {
+            display: inline-block;
+            margin-top: 26.1px;
+        }
+        
+        .assignTopic {
+            font-size: 13.1px;
+            font-weight: 600;
+            color: #535353;
+        }
+        
+        .assignDesc {
+            font-size: 13.1px;
+            font-weight: 600;
+            color: #878787;
+        }
+        
+        .assignDate {
+            display: inline-block;
+            position: relative;
+            float: right;
+            margin-top: 26.1px;
+            margin-right: 22.1px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #a4a4a4;
+        }
+        
+        .actionBtns {
+            margin-left: 29.8px;
+            margin-top: -10px;
+        }
+        
+        .dueDate {
+            font-size: 13.1px;
+            font-weight: 600;
+            color: #999999;
+            display: inline-block;
+            background-color: #fbcccc;
+            color: #dc384c;
+        }
+        
+        .btns {
+            display: inline-block;
+            position: relative;
+            float: right;
+            margin-right: 22.1px;
+        }
+        
+        .comment {
+            color: #a4a4a4;
+            font-weight: 600;
+        }
+        
+        .preview {
+            color: #a4a4a4;
+            font-weight: 600;
+        }
+        
+        .download {
+            color: #a4a4a4;
+            font-weight: 600;
+        }
+        
+        .submit {
+            font-size: 13.1px;
+            font-weight: 600;
+            color: #29abe2;
+        }
+        
+        .postComment {
+            background-color: #f9f9f9;
+            margin-top: 10px;
+        }
+        
+        .commentPic {
+            margin-top: 14px;
+            margin-left: 34px;
+            width: 22.3px;
+            height: 22.3px;
+            margin-bottom: 30px;
+        }
+        
+        .name {
+            font-size: 13.1px;
+            font-weight: 600;
+            color: #3c3c3c;
+        }
+        
+        .comment {
+            font-size: 13.1px;
+            font-weight: 600;
+            color: #878787;
+        }
+        
+        .commentInput {
+            width: 646px;
+            height: 29.6px;
+            background-color: #ffffff;
+            border-style: none;
+            padding-left: 10px;
+        }
+        
+        .dueDatePass {
+            font-size: 13.1px;
+            font-weight: 600;
+            color: #999999;
+            display: inline-block;
+            background-color: #fde9c8;
+            color: #f5a623;
+        }
+        
+        .commentText{
+            display: inline-block;
+        }

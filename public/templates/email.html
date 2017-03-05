@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title></title>
+<style type="text/css">
+body{
+	background-color: #F6F6F6;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: none;
+	width: 100%!important;
+	height: 100%;
+}
+* {
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+	font-size: 100%;
+	line-height: 1.6;
+}
+img {
+	max-width: 100%;
+}
+
+table.body-wrap {
+	width: 100%;
+	padding: 20px;
+}
+.container {
+	display: block!important;
+	max-width: 600px!important;
+	margin: 0 auto!important;
+	clear: both!important;
+	background: #FFFFFF;
+
+}
+.content {
+	max-width: 600px;
+	margin: 0 auto;
+	display: block;
+	padding: 20px;
+}
+
+.navbar{
+	text-align: center;
+	font-size: 22px;
+	font-weight: 600;
+	padding: 10px 0 10px 0;
+}
+.heading{
+	font-family: ProximaNova-Semibold;
+	font-size: 18px;
+	color: #22B373 ;
+	line-height: 22px;
+	font-weight: 600;
+}
+.body{	
+	font-family: ProximaNova-Regular;
+	font-size: 16px;
+	color: #666666 ;
+	line-height: 19px;
+	padding-top: 30px;
+}
+button{
+	margin: 20px 0px 20px 80px;
+	padding: 2px 20px 2px 20px;
+	background: #29A9E0 ;
+	font-family: ProximaNova-Semibold;
+	font-size: 18px;
+	color: #FFFFFF ;
+	border:0px;
+	border-bottom: 4px solid #2685AE;
+	width:400px;
+	cursor: pointer;
+}
+.footer{
+	text-align: center;
+	padding: 10px 0 10px 0;
+	background-color: #EDEDED;
+	color: gray;
+	border-top: 4px solid rgba(225, 225, 225, 0.73);
+}
+
+</style>
+</head>
+<body>
+<table class="body-wrap">
+	<tbody>
+		<tr>
+			<td></td>
+			<td class="container">
+					<div class="navbar">UnivInks</div>
+					<img src="../images./email_image.png" alt="Image">
+					<div class="content">
+						<span class="heading">{{ Heading }}</span>
+						<div class="body">{{ Body }}</div>
+
+						<button>Setup virtual classroom</button>
+					</div>
+					<div class="footer">
+						Team UnivInks
+					</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>
