@@ -100,6 +100,22 @@ class StudentSetupCtrl extends Controller{
 		}	
 	}
 
+	public function googleLogin(Request $request){
+		$user =  new UserModel;			
+		$email = $request->input('email');
+		
+		$check = StudentSetupModel::googleLogin($email);
+		if(count($check) == 0){
+			return response(['status'=>'error','message'=>'email id is not registed']);
+		}else{
+			$request->session()->put('student_id', $check[0]->user_id);	
+			$request->session()->put('username', $check[0]->student_id);
+			$request->session()->put('college_id', $check[0]->college_id);
+			return response(['status'=>'success']);
+			
+		}
+	}
+
 	public function studentSubject(Request $request, $subject_id){
 		$sub_info = FacultySetupModel::getSubjectInfo($subject_id);
 		$sub_files = FacultySetupModel::getSubjectAssignmentList($subject_id);
@@ -155,5 +171,41 @@ class StudentSetupCtrl extends Controller{
 		$data = ['parent_id'=>$data['discussion_id'],'subject_id'=>0,'student_id'=>$student_id,'discussion'=>$data['comment_text'],'ask_faculty'=>0];
 		$response = StudentSetupModel::postComment($data);
 		return response(['status'=>'success','comment'=>$response]);
+	}
+
+	public function submitAssignment(Request $request){
+		$user_id = $request->session()->get('student_id');
+		$username = $request->session()->get('username');
+		$subject_id = $request->input('subject_id');
+		$assgn_id = $request->input('assgn_id');
+		$assgn_name = $request->input('assgn_name');		
+		$destinationPath = 'uploads'; 
+	    $extension = Input::file('file_info')->getClientOriginalExtension(); 
+	    $fileName = $assgn_name.'_'.$username.'.'.$extension; 	    	    
+	    Input::file('file_info')->move($destinationPath, $fileName); 	    
+	    $data = ['subject_id'=> $subject_id,'assgn_id'=>$assgn_id,'user_id'=>$user_id,'name'=>$fileName,'status'=>'submit'];
+	    $id = DB::table('assignment_submit')->insertGetId($data);
+	    if($id){
+	    	return response(['status'=>'success']);	
+	    }else{
+	    	return response(['status'=>'fail']);	
+	    }
+	}
+
+	public function getSubmitAssignments(Request $request){
+		$user_id = $request->session()->get('student_id');
+		$subject_id = $request->input('subject_id');
+
+		$list = DB::table('assignment_submit')
+				->where('subject_id',$subject_id)
+				->where('user_id',$user_id)
+				->select('id','name', 'status','created_at')
+				->get();
+		if(count($list) > 0){
+			return response(['status'=>'success','list'=>$list]);	
+		}else{
+			return response(['status'=>'empty']);	
+		}		
+
 	}	
 }

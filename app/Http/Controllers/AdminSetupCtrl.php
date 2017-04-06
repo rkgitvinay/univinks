@@ -172,7 +172,7 @@ class AdminSetupCtrl extends Controller{
 					$check = DB::table('users')->where('username', $value->email)->get();
 					if(count($check) == 0){
 						$random = md5(uniqid($value->email, true));
-						$insert = ['college_id'=>$user->college_id,'username' => $value->email, 'password' => md5('password'),'access_token'=>$random,'user_type' =>'faculty','setup' => 'createPassword'];
+						$insert = ['college_id'=>$user->college_id,'username' => $value->email,'name' => $value->name,'password' => md5('password'),'access_token'=>$random,'user_type' =>'faculty','setup' => 'createPassword'];
 						if(!empty($insert)){
 
 							//$this->sendEmail($value->email,$value->name,$random);
@@ -204,7 +204,7 @@ class AdminSetupCtrl extends Controller{
 					$check = DB::table('users')->where('username', $value->id)->get();
 					if(count($check) == 0){
 						$random = md5(uniqid($value->id, true));
-						$insert = ['college_id'=>$user->college_id, 'username' => $value->id, 'password' => md5('password'),'access_token'=>$random,'user_type' =>'student'];
+						$insert = ['college_id'=>$user->college_id, 'username' => $value->id,'name' => $value->name, 'password' => md5('password'),'access_token'=>$random,'user_type' =>'student'];
 						if(!empty($insert)){
 							$id =  DB::table('users')->insertGetId($insert);
 							$user_info = ['user_id'=>$id, 'name' => $value->name, 'identity_number' => $value->id, 'department' => $value->department];

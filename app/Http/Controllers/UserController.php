@@ -303,7 +303,7 @@ class UserController extends Controller{
 
 	public function logout(){
 		session()->flush();
-		return redirect('/');
+		return redirect('https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/production');
 	}
 
 	public function adminLogout(){

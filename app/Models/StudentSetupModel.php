@@ -25,6 +25,14 @@ class StudentSetupModel extends Model{
 				->get();
 		return $users;
 	}
+
+	public static function googleLogin($email){
+		$users = DB::table('student as s')
+				->leftJoin('users as u','s.user_id','=','u.id')
+				->where('email', $email)->select('s.user_id','s.identity_number as student_id','u.college_id')
+				->get();
+		return $users;
+	}
 // SELECT d.id as course_id,s.id as subject_id,s.subject_name,fs.user_id as faculty_id,f.name as faculty_name FROM department as d
 // LEFT JOIN subjects as s on s.course_id = d.id
 // LEFT JOIN faculty_subjects as fs on fs.subject_id = s.id

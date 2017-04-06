@@ -8,6 +8,7 @@
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ URL::asset('public/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('public/css/font-awesome.min.css') }}" />
+    <link rel="stylesheet" href="{{ URL::asset('public/css/sweetalert.css') }}" />
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -301,7 +302,7 @@
                 <ul class="nav nav-tabs">
                     <li>
                         <div class="filesTab">
-                            <a data-toggle="tab" href="#files">Files</a>
+                            <a data-toggle="tab" id="getFiles" href="#files">Files</a>
                         </div>
                     </li>
                     <li>
@@ -332,7 +333,16 @@
                                 <a target="_blank" href="{{ URL::asset('uploads/'.$file->subject_name) }}" class="download"><img src="{{ URL::asset('public/images/download1.png') }}">Download</a>&emsp;                                
 
 
-                                <a href="#" class="submit"><img src="{{ URL::asset('public/images/submit.png') }}">Submit Assignment</a>
+                                <a href=""  onclick="document.getElementById('upload_assign').click(); return false" class="submit"><img src="{{ URL::asset('public/images/submit.png') }}">Submit Assignment</a>
+                                <form id="submitAssign" action="{{ URL::to('/student/submitAssignment') }}" class="form-horizontal" method="post" enctype="multipart/form-data">                                                
+                                    <div class="input-group">
+                                        <input type="hidden" name="subject_id" value="{{$subject_id}}">
+                                        <input type="hidden" name="assgn_id" value="{{$file->id}}">
+                                        <input type="hidden" name="assgn_name" value="{{$file->subject_name}}">
+                                        <input onchange="submitAssigment();" id="upload_assign" style="visibility: hidden;" type="file" name="file_info" />                                      
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
                         <div class="postComment">
@@ -350,37 +360,9 @@
                     @endforeach                  
                 </div>
                 <div id="files" class="tab-pane fade">
-                    <div class="panel discCard">
-                        <div class="cardHeader">
-                            <img class="propic" src="{{ URL::asset('public/images/propic.png') }}">
-                            <div class="poster">
-                                <div class="posterName">Pratyush Soni</div>
-                                <div class="posterDate">15th May</div>
-                            </div>
-                        </div>
-                        <div class="cardContent">
-                            <div class="contentHeading">The Explanation of a Black Hole?</div>
-                            <div class="mainContent">sfdilubguisufgbidslfgbifdugirfbeklrjgnbroeugbairgbler...</div>
-                            <div class="contentFooter">
-                                <div class="commentCount">
-                                    <div class="staticComment">&nbsp;Comments</div>
-                                    <div class="commentCounter">12</div>
-                                </div>
-                                <div class="fbShare">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="postComment">
-                            <img src="{{ URL::asset('public/images/propic.png') }}" class="commentPic">
-                            <div class="comment">
-                                <div class="commentName">Akbar Ali</div><br />
-                                <div class="commentText">dfsblkgasriluairigrgirsi</div>
-                            </div>
-                            <div class="commentTime">May 16</div>
-                            <hr style="margin-top: -15px;" />
-                            <input class="commentInput" style="margin-left: 20px;" type="text" placeholder="Write a Comment.">
-                        </div>
-                    </div>
+
+
+
                 </div>
             </div>
         </div>
@@ -426,15 +408,51 @@
 
     </div>
 
+    <?php 
+        $var = $subject_id;
+    ?>
+
     <script src="{{ URL::asset('public/js/jquery.min.js') }}"></script>
     <script src="{{ URL::asset('public/js/bootstrap.min.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{ URL::asset('public/js/sweetalert.min.js') }}"></script>
 
     <script type="text/javascript">
 
         $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd',minDate:0 });
         function assignmentInfo(){
             $('#myModal').modal();
+        }
+
+        function submitAssigment(){
+
+            swal({
+                title: "Submit Assignment ?",                
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Upload",
+                closeOnConfirm: false
+            },
+            function(){
+                var formData = new FormData($('#submitAssign')[0]);
+                var url   = '{{url("/student/submitAssignment")}}';
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    async: false,
+                    success: function (data) {
+                        if(data.status == 'success'){
+                             swal("Done!", "Your assignment has been uploaded", "success");
+                        }
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+              
+            });
         }
 
         $(document).on('click', '#updateData', function(){
@@ -574,9 +592,50 @@
                         $('#postComment_'+id)[0].reset();
                     }                 
                 });
-                
-
             }
+        });
+
+        $(document).on('click', '#getFiles', function(e){
+            $('#files').html('');
+            subject_id = '<?php echo $var ;?>';
+            var url   = '{{url("/student/getSubmitAssignments")}}';
+            $.ajax({
+               data : {subject_id:subject_id},
+               url : url,
+               type: 'GET'
+            }).done(function(data){            
+                $.each(data.list, function(i,row){
+                    var file = '<div class="panel assignmentCard" style="height: 140px;">'+
+                        '<img class="assignPic" src="{{ URL::asset("public/images/propic.png") }}">'+
+                        '<div class="assignDate">'+row.created_at+'</div>'+
+                        '<div class="assignText">'+
+                            '<div class="assignTopic">'+row.name+'</div>'+
+                        '</div>'+
+                        '<div class="actionBtns">Due Date :'+
+                            '<div class="dueDate">&nbsp;'+row.status+'&nbsp;</div>'+
+                            '<div class="btns">'+
+                                '<a target="_blank" href="#" class="preview">'+
+                                    '<img src="#">Preview'+
+                                '</a>'+
+                                '<a href=""  onclick="document.getElementById("upload_assign").click(); return false" class="submit">'+
+                                    '<img src="{{ URL::asset("public/images/submit.png") }}">Submit Assignment'+
+                                '</a>'+
+                                '<form id="submitAssign" action="{{ URL::to("/student/submitAssignment") }}" class="form-horizontal" method="post" enctype="multipart/form-data">'+                                                
+                                    '<div class="input-group">'+
+                                        '<input type="hidden" name="subject_id" value="{{$subject_id}}">'+
+                                        '<input type="hidden" name="assgn_id" value="{{$file->id}}">'+
+                                        '<input type="hidden" name="assgn_name" value="{{$file->subject_name}}">'+
+                                        '<input onchange="submitAssigment();" id="upload_assign" style="visibility: hidden;" type="file" name="file_info" />'+
+                                    '</div>'+
+                                '</form>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>';
+
+                    $('#files').append(file);
+                    
+                });          
+            });
         });
 
     </script>

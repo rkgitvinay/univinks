@@ -49,6 +49,7 @@ Route::post('/faculty/postDiscussion', 'FacultySetupCtrl@postDiscussion');
 
 Route::get('/', 'StudentSetupCtrl@index');
 Route::post('/student/login','StudentSetupCtrl@login');
+Route::post('/student/googleLogin','StudentSetupCtrl@googleLogin');
 Route::post('/student/getStarted','StudentSetupCtrl@getStarted');
 Route::get('/student/getStudentDetails','StudentSetupCtrl@getStudentDetails');
 Route::post('/student/setStudentDetails','StudentSetupCtrl@setStudentDetails');
@@ -61,3 +62,5 @@ Route::post('/student/upvote', 'StudentSetupCtrl@upvote');
 Route::post('/student/downvote', 'StudentSetupCtrl@downvote');
 Route::post('/student/postDiscussion','StudentSetupCtrl@postDiscussion');	
 Route::post('/student/postComment','StudentSetupCtrl@postComment');
+Route::post('/student/submitAssignment','StudentSetupCtrl@submitAssignment');
+Route::get('/student/getSubmitAssignments', 'StudentSetupCtrl@getSubmitAssignments');
