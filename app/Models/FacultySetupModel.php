@@ -85,5 +85,14 @@ class FacultySetupModel extends Model{
 				->selectRaw("sd.id,sd.discussion,DATE_FORMAT(sd.created_at,'%b %d %Y %h:%i %p') as created_at,sd.student_id,s.name as student_name")
 				->get();
 	}
+	public static function getAssignmentSubmissions($assignment_id){
+		//$assignment_id = $request->input('assignment_id');
+		$res = 	DB::table('assignment_submit as a')
+				->leftJoin('student as s', 's.user_id','=','a.user_id')
+				->where('a.assgn_id',$assignment_id)
+				->select('a.id','a.name as submission_name','a.status','a.created_at as submitted_at','s.user_id','s.name as student_name')
+				->get();
+		return $res;
+	}
 
 }

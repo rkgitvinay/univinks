@@ -302,7 +302,7 @@ li.child{
                 
                 <ul class="list-group" id="department_list">
                     @foreach ($info as $dept)                        
-                        <li class="list-group-item">
+                        <li class="list-group-item" id="dept_row_{{$dept->id}}">
                             <div class="media">
                                 <div class="media-left">
                                      <div id="myTooltips">
@@ -310,7 +310,9 @@ li.child{
                                      </div>
                                 </div>
                                 <div class="media-body">
-                                     <h5 class="media-heading">{{$dept->name}}</h5>
+                                     <h5 class="media-heading" id="dept_name_{{$dept->id}}">{{$dept->name}}</h5>
+                                     <span id="edit_dept" data-id="{{$dept->id}}" class="glyphicon glyphicon-pencil icon"></span>
+                                        <span style="margin-left: 5px;" id="delete_dept" data-id="{{$dept->id}}" class="glyphicon glyphicon-trash icon"></span>
                                 </div>
                             </div>
                         </li>
@@ -320,6 +322,59 @@ li.child{
             </div>
         </div>
         </div>
+
+
+  <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit Course</h4>
+                      </div>
+                      <div class="modal-body">
+
+                           <div class="panel-body">                    
+                            <form class="form-horizontal" id="departmentUpdate">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">  
+                                <input type="hidden" name="dept_id" id="dept_id">   
+                                <div class="form-group">
+                                     <label class="col-md-2 control-label"><span class="pull-left">Title</span></label>
+                                     <div class="col-md-offset-1 col-md-6">
+                                         <input type="text" name="name" id="deptTitle" class="form-control">
+                                     </div>
+                                </div>
+                                <div class="form-group">
+                                     <label class="col-md-3"><span class="pull-left">Courses Offered </span></label>
+                                     <div class="col-md-9">
+                                         <label class="checkbox-inline">
+                                            <input type="checkbox" name="ug" id="ug" value="1"> UG
+                                         </label>
+                                         <label class="checkbox-inline">
+                                            <input type="checkbox" name="pg" id="pg" value="1"> PG
+                                         </label>
+                                         <label class="checkbox-inline">
+                                            <input type="checkbox" name="dual_degree" id="dual_degree" value="1"> Dual Degree 
+                                         </label>
+                                     </div> 
+                                </div>
+                                <div class="form-group">                    
+                                     <div class="col-md-3 col-md-offset-9">
+                                         <button type="submit" id="updateDepartmentBtn" class="btn btn-info">UPDATE</button>
+                                     </div>
+                                </div>
+                            </form>
+                        </div> 
+                            
+                      </div>
+                      
+                    </div>
+
+                  </div>
+                </div>
+            <!-- Model end -->
 <script>
 $(document).ready(function(){
     $("#myTooltips a").tooltip({
@@ -357,6 +412,25 @@ $(document).ready(function(){
         });
   });
 
+    $(document).on("click","#updateDepartmentBtn",function(e){
+        e.preventDefault();   
+        var ele   = $('#departmentUpdate');
+        var data  = ele.serialize();
+        var url   = '{{url("/updateDepartment")}}';//"http://localhost/production/addDepartment";
+        $.ajax({
+           data : data,
+           url : url,
+           type: 'POST'
+        }).done(function(data){
+            if(data.status == 'success'){
+                $('#dept_name_'+data.id).text(data.name);
+                $('#departmentUpdate')[0].reset();
+                $('#myModal').modal('hide');
+            }             
+            
+        });
+    });
+
   $(document).on("click","#courseBtn",function(e){
     e.preventDefault();                   
         var url   = '{{url("/goToCourse/courses")}}';//"http://localhost/production/goToCourse";
@@ -369,6 +443,47 @@ $(document).ready(function(){
             }
         });
   });
+
+  $(document).on('click', '#delete_dept', function(){    
+    var dept_id = $(this).data('id');
+    var url   = '{{url("/deleteDept")}}';
+    $.ajax({           
+           url : url,
+           type: 'GET',
+           data:{dept_id:dept_id},
+        }).done(function(data){                     
+            if(data.status == 'success'){               
+                $('#dept_row_'+dept_id).hide();
+            }             
+        });    
+});
+
+  $(document).on('click', '#edit_dept', function(){
+    var dept_id = $(this).data('id');
+    var url   = '{{url("/getDeptDetail")}}';
+    $.ajax({           
+           url : url,
+           type: 'GET',
+           data:{dept_id:dept_id},
+        }).done(function(data){                     
+            if(data.status == 'success'){
+                $('#dept_id').val(data.dept.id);
+                $('#deptTitle').val(data.dept.name);
+                if(data.dept.ug == 1){
+                    $('#ug').prop('checked',true);    
+                }
+                if(data.dept.pg == 1){
+                    $('#pg').prop('checked',true);    
+                }
+                if(data.dept.dual_degree == 1){
+                    $('#dual_degree').prop('checked',true);    
+                }
+                //console.log(data);
+                
+            } 
+            $('#myModal').modal();  
+        });    
+});
 </script>     
 
 </body>

@@ -80,8 +80,50 @@ class FacultySetupCtrl extends Controller{
 			$data[$k] = $temp;
 			$k++;
 		}
-		//return response($data);
-		return view('/faculty_view/subjectDashboard',['subject_id'=>$subject_id,'sub_info'=>$sub_info[0],'sub_files'=>$sub_files,'sub_disc'=>$data]);
+		//print_r($sub_files);
+		$submissions = [];
+		$i = 0;
+		foreach($sub_files as $file){
+			$sub['id'] = $file->id;
+			$sub['subject_id'] = $file->subject_id;
+			$sub['subject_name'] = $file->subject_name;
+			$sub['notes'] = $file->notes;
+			$sub['deadline'] = $file->deadline;
+			$sub['upvote'] = $file->upvote;
+			$sub['downvote'] = $file->downvote;
+			$sub['comments'] = $file->comments;
+			$sub['created_at'] = $file->created_at;
+			$sub['faculty_name'] = $file->faculty_name;
+			$sub['submissions'] = FacultySetupModel::getAssignmentSubmissions($file->id);
+			$submissions[$i] = $sub;
+			$i++;
+		}
+		
+
+		return view('/faculty_view/subjectDashboard',['subject_id'=>$subject_id,'sub_info'=>$sub_info[0],'sub_files'=>$submissions,'sub_disc'=>$data]);
+	}
+
+	public function getAssignmentSubmissions(Request $request){
+		$user_id = $request->session()->get('user_id');
+		$assignment_id = $request->input('assignment_id');
+		$res = 	DB::table('assignment_submit as a')
+				->leftJoin('student as s', 's.user_id','=','a.user_id')
+				->where('a.assgn_id',$assignment_id)
+				->select('a.id','a.name as submission_name','a.status','a.created_at as submitted_at','s.user_id','s.name as student_name')
+				->get();
+		if($res){
+			return response(['status'=>'success','data'=>$res]);
+		}
+		//print_r($res);
+	}
+
+	public function review(Request $request){
+		$user_id = $request->session()->get('user_id');
+		$submission_id = $request->input('submission_id');
+		$value = $request->input('value');
+
+		DB::table('assignment_submit')->where('id', $submission_id)->update(['status' => $value]);
+		return response(['status'=>'success']);
 	}
 
 	public function uploadAssignment(Request $request){

@@ -11,6 +11,9 @@ Route::get('/email','UserController@email');
 
 Route::post('/addCollege','AdminSetupCtrl@addCollege');
 Route::post('/addDepartment', 'AdminSetupCtrl@addDepartment');
+
+Route::post('/updateDepartment', 'AdminSetupCtrl@updateDepartment');
+
 Route::get('/goToCourse/{step}', 'AdminSetupCtrl@goToCourse');
 Route::get('/getCourses/{department_id}','AdminSetupCtrl@getCourses');
 Route::post('/addSubject','AdminSetupCtrl@addSubject');
@@ -20,9 +23,13 @@ Route::get('/deletePeople','AdminSetupCtrl@deletePeople');
 Route::get('/step/{at}','AdminSetupCtrl@step');
 Route::post('uploadFacultyDatabase','AdminSetupCtrl@uploadFacultyDatabase');
 Route::post('uploadStudentDatabase','AdminSetupCtrl@uploadStudentDatabase');
+Route::get('/getDeptDetail', 'AdminSetupCtrl@getDeptDetail');
 Route::get('/getCourseDetail', 'AdminSetupCtrl@getCourseDetail');
 Route::post('/updateCourse', 'AdminSetupCtrl@updateCourse');
 Route::get('/deleteCourse','AdminSetupCtrl@deleteCourse');
+
+Route::get('/deleteDept','AdminSetupCtrl@deleteDept');
+
 Route::get('/getSubjectDetail', 'AdminSetupCtrl@getSubjectDetail');
 Route::post('/updateSubject','AdminSetupCtrl@updateSubject');
 Route::get('/deleteSubject','AdminSetupCtrl@deleteSubject');
@@ -41,7 +48,13 @@ Route::get('/faculty/{token}/{email}', 'FacultySetupCtrl@index');
 Route::post('/faculty/setPassword','FacultySetupCtrl@setPassword');
 Route::post('/faculty/setDepartment', 'FacultySetupCtrl@setDepartment');
 Route::post('/faculty/setSubject', 'FacultySetupCtrl@setSubject');
+
 Route::get('/facultySubject/subject/{subject_id}','FacultySetupCtrl@facultySubject');
+
+Route::post('/facultySubject/submission/','FacultySetupCtrl@getAssignmentSubmissions');
+
+Route::post('/facultySubject/review','FacultySetupCtrl@review');
+
 Route::post('/faculty/uploadAssignment','FacultySetupCtrl@uploadAssignment');
 Route::post('/faculty/deleteAssignment','FacultySetupCtrl@deleteAssignment');
 Route::post('/faculty/postDiscussion', 'FacultySetupCtrl@postDiscussion');

@@ -21,7 +21,151 @@
     <meta property="og:title" content="Your Website Title" />
     <meta property="og:description" content="Your description" />
     <meta property="og:image" content="http://www.your-domain.com/path/image.jpg" />
-    
+    <style type="text/css">
+    .shape{    
+        border-style: solid; border-width: 0 70px 40px 0; float:right; height: 0px; width: 0px;
+        -ms-transform:rotate(360deg); /* IE 9 */
+        -o-transform: rotate(360deg);  /* Opera 10.5 */
+        -webkit-transform:rotate(360deg); /* Safari and Chrome */
+        transform:rotate(360deg);
+    }
+
+    .shape-text{
+        color:#fff; font-size:12px; font-weight:bold; position:relative; right:-40px; top:2px; white-space: nowrap;
+        -ms-transform:rotate(30deg); /* IE 9 */
+        -o-transform: rotate(360deg);  /* Opera 10.5 */
+        -webkit-transform:rotate(30deg); /* Safari and Chrome */
+        transform:rotate(30deg);
+    }
+
+    .project {
+        min-height:70px;
+        height:auto;
+    }
+
+    .project{
+        background:#fff; border:1px solid #ddd; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); overflow:hidden;
+    }
+
+    .project-radius{
+        border-radius:7px;
+    }
+    .project-success {  border-color: #5cb85c; }
+    .project-success .shape{
+        border-color: transparent #5cb85c transparent transparent;
+        border-color: rgba(255,255,255,0) #5cb85c rgba(255,255,255,0) rgba(255,255,255,0);
+    }
+    .project-content {
+        padding:0 20px 3px;
+    }
+    .custom{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        margin-top: 3px;
+    }
+   /* .panel-heading a:after {
+        font-family: 'fontawesome';
+        content: "\f07d";
+        float: right;
+        color: grey;
+    }*/
+    .panel-heading {
+        cursor: pointer;
+        cursor: hand;
+    }
+    .submcard{
+                width: 100%px;
+                height: 90px;
+                margin-left: auto;
+                margin-right: auto;
+                padding-top: 14px;
+                padding-bottom: 14px;
+                padding-left: 16px;
+                padding-right: 20px;
+                margin-top: 16px;
+            }
+            
+            .submName{
+                font-weight: 600;
+            }
+            
+            .cardLeft{
+                display: inline-block;
+                margin-left: 10px;
+            }
+            
+            .propic{
+                height: 61px;
+            }
+            
+            .cardRight{
+                display: inline-block;
+                text-align: right;
+                width: 70%;
+            }
+            
+            .reviewIcon{
+                height: 23px;
+            }
+            
+            .redoIcon{
+                height: 23px;
+            }
+            
+            .approveIcon{
+                height: 23px;
+            }
+            
+            .approvedText{
+                color: #7ed321;
+                font-weight: 600;
+            }
+            
+            .reviewText{
+                font-weight: 600;
+                color: #f5a623;
+            }
+            
+            .redoText{
+                font-weight: 600;
+                color: #e74256;
+            }
+             .assignDesc{
+                height: 134.5px;
+                margin-top: 2px;
+                padding-left: 30px;
+                padding-top: 30px;
+                
+            }
+            
+            .assignImg{
+                height: 50px;
+                margin-top: -35px;
+            }
+            
+            .descText{
+                display: inline-block;
+                margin-left: 10px;
+            }
+            
+            .assignDeadline{
+                display: inline-block;
+                text-align: right;
+                width: 60%;
+            }
+            
+            .redDate{
+                background-color: #e56373;
+                display: inline-block;
+                border-radius: 3px;
+                color: white;
+            }
+            .expand{
+                width: 100%;
+                text-align: center;
+                margin-top: 10px;
+            }
+    </style>
 </head>
 
 <body>
@@ -89,6 +233,11 @@
                     <a data-toggle="tab" href="#sec2">Discussions</a>&emsp;&emsp;&emsp;
                 </div>
             </li>
+            <li>
+                <div class="col-xs-3 tab-text">
+                    <a data-toggle="tab" href="#sec3">Submissions</a>&emsp;&emsp;&emsp;
+                </div>
+            </li>
             
             <span>
                <?php echo Session::get('message'); ?>
@@ -154,11 +303,11 @@
                     </div>
 
                     @foreach($sub_files as $file)
-                    <div class="row feed-row-main" id="assignment_row_{{$file->id}}">
+                    <div class="row feed-row-main" id="assignment_row_{{$file['id']}}">
                         <div class="row">
                             <div class="col-md-11"></div>
                             <div class="col-md-1 trash-icon">
-                                <i style="cursor: pointer;" data-assignment_id="{{$file->id}}" class="fa fa-trash-o delete_assignment"></i>
+                                <i style="cursor: pointer;" data-assignment_id="{{$file['id']}}" class="fa fa-trash-o delete_assignment"></i>
                             </div>
                         </div>
                         <div class="row feed-row-content">
@@ -166,22 +315,25 @@
                                 <img src="http://placehold.it/70x70" alt="" />
                             </div>
                             <div class="col-md-10 main-text">
-                                <a target="_blank" href="{{ URL::asset('uploads/'.$file->subject_name) }}">
-                                    <span>{{$file->subject_name}}</span>
+                                <a target="_blank" href="{{ URL::asset('uploads/'.$file['subject_name']) }}">
+                                    <span>{{$file['subject_name']}}</span>
                                 </a>
                                 <!-- <span style="padding-left: 10px; color: blue;"><i class="fa fa-eye"></i></span> -->
-                                <p>{{$file->notes}}</p>
+                                <p>{{$file['notes']}}</p>
                             </div>
                             <div class="col-md-1 date">
-                                {{$file->deadline}}
+                                {{$file['deadline']}}
                             </div>
                         </div>
                         <div class="row feed-row-footer">
                             <div class="col-md-1" style="padding: 0">
                             </div>
-                            <div class="col-md-7 upload-text">
-                                <p>Uploaded By: <span>&nbsp;&nbsp;{{$file->faculty_name}}</span></p>
+                            <div class="col-md-4 upload-text">
+                                <p>Uploaded By: <span>&nbsp;&nbsp;{{$file['faculty_name']}}</span></p>
                             </div>
+                             <!-- <div class="col-md-3 upload-text">
+                                <a href="#" id="viewSubmissions" data-assgn_id="{{$file['id']}}" data-toggle="modal" data-target="#submissionModel">View Submissions</a>
+                            </div> -->
                             <div class="col-md-4">
                                 <div class="row">
                                     <div class="col-md-3 button-1">
@@ -190,7 +342,7 @@
                                                 &nbsp;Upvote
                                             </div>
                                             <div class="col-xs-5 button-1-right ">
-                                                {{$file->upvote}}
+                                                {{$file['upvote']}}
                                             </div>
                                         </div>
                                     </div>
@@ -201,16 +353,11 @@
                                                 &nbsp;Downvote
                                             </div>
                                             <div class="col-xs-4 button-2-right">
-                                                {{$file->downvote}}
+                                                {{$file['downvote']}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-1"></div>
-                                    <div class="col-md-3 button-3">
-                                        <div class="row">
-                                            <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -223,7 +370,83 @@
                 </div>
             </div>
         </div>
+
         <!-- Section 1 ends -->
+
+        <div id="sec3" class="tab-pane fade" style="margin-top: 15px;">
+
+<div class="container">
+  <div class="row">
+    <!-- <div class="col-md-6 col-md-offset-3 col-xs-12"> -->
+     
+      <div class="panel-group" id="accordion">
+
+       
+
+        <!-- panel2 -->
+         @foreach($sub_files as $file)
+        <div class="panel panel-default" id="panel2" data-toggle="collapse" data-target="#collapse{{$file['id']}}">
+          <div class="panel-heading"  data-toggle="collapse" data-target="#collapse{{$file['id']}}">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-target="#collapse{{$file['id']}}" href="#collapse{{$file['id']}}" class="collapsed">
+                    <img class="assignImg" src="{{ URL::asset('public/images/assignment.png' ) }}">
+                    <div class="descText">
+                        <h4><strong>{{$file['subject_name']}}</strong></h4>
+                        Posted:&nbsp;<span class="datetime"><strong>{{$file['created_at']}}</strong></span>
+                    </div>
+                    <div class="assignDeadline">
+                        <h5>Submission Deadline:</h5>
+                        <div class="redDate">&nbsp;{{$file['deadline']}}&nbsp;</div>
+                    </div>
+                    <div class="expand">
+                        <img src="{{ URL::asset('public/images/collapse_arrow1600.png' ) }}" height="20px">
+                    </div>
+                </a>
+            
+
+            </h4>
+          </div>
+          <div id="collapse{{$file['id']}}" class="panel-collapse collapse fade">
+            <div class="panel-body">
+                @foreach($file['submissions'] as $sub)
+                <div class="panel submcard">
+                    <img src="{{ URL::asset('public/images/propic.png' ) }}" class="propic">
+                    <div class="cardLeft">
+                        <div class="submName">{{$sub->student_name}}</div>
+                        <div class="submDate">Submitted On: <strong>{{$sub->submitted_at}}</strong></div>
+                    </div>
+                    <div class="cardRight">
+                        @if($sub->status == 'submit')
+                        <span class="dynamic-text_{{$sub->id}}">
+                            <img src="{{ URL::asset('public/images/iicon.png' ) }}"  class="reviewIcon">&emsp;&emsp;
+                            <img src="{{ URL::asset('public/images/redArrow.png' ) }}" id="actionBtn" data-id="{{$sub->id}}" data-value="review" class="redoIcon">&emsp;&emsp;
+                            <img src="{{ URL::asset('public/images/greentick.png' ) }}" id="actionBtn" data-id="{{$sub->id}}" data-value="accept" class="approveIcon">
+                        </span>
+                        @endif
+
+                        @if($sub->status == 'review')
+                        <span class="reviewText">Marked For Review</span>
+                        @endif
+
+                        @if($sub->status == 'accept')
+                            <span class="approvedText">Approved</span>
+                        @endif
+                    </div>
+                </div>
+                <hr>
+                 @endforeach
+
+            </div>
+          </div>
+        </div>
+        @endforeach
+       
+      </div>
+   
+  </div>
+</div>
+
+        </div>
 
         <!-- Section 2 -->
         <div id="sec2" class="tab-pane fade">
@@ -290,6 +513,10 @@
         </div>
         <!-- Section 2 ends -->
 
+
+
+
+
         <!-- Modal -->
                 <div id="myModal" class="modal fade" role="dialog">
                   <div class="modal-dialog">
@@ -317,6 +544,31 @@
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="button" id="updateData" class="btn btn-primary">Save</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+            <!-- Model end -->
+
+
+              <!-- Modal -->
+                <div id="submissionModel" class="modal fade" role="dialog">
+                  <div class="modal-dialog modal-lg">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Submission Details</h4>
+                      </div>
+                      <div class="modal-body submission_list">
+
+                            
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                       </div>
                     </div>
 
@@ -370,9 +622,30 @@
                     }             
                 }); 
               
-            });
+            }); 
+        });
 
-                
+        $(document).on('click', '#actionBtn', function(e){
+            var id = $(this).data('id');
+            var value = $(this).data('value');
+            var url   = '{{url("/facultySubject/review")}}';
+            $.ajax({           
+               url : url,
+               type: 'POST',
+               data:{submission_id:id,value:value},
+            }).done(function(data){                     
+                if(data.status == 'success'){               
+                    if(value == 'review'){
+                        $('.dynamic-text_'+id).html('');
+                        $('.dynamic-text_'+id).text('Marked for review');
+                        $('.dynamic-text_'+id).css({'color':'#f5a623','font-weight':'600'});
+                    }else if(value == 'accept'){
+                        $('.dynamic-text_'+id).html('');
+                        $('.dynamic-text_'+id).text('Approved');
+                        $('.dynamic-text_'+id).css({'color':'#7ed321','font-weight':'600'});
+                    }
+                }             
+            });
         });
 
         $(document).on('click', '.btnPostDiscussion', function(e){

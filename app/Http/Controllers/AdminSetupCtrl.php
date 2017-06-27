@@ -38,9 +38,7 @@ class AdminSetupCtrl extends Controller{
 			}	
 		}else{
 			return response(['status'=>'fail','message'=>'invalid input']);
-		}		
-		
-		
+		}
 	}
 
 	public function getCourseDetail(Request $request){
@@ -48,6 +46,17 @@ class AdminSetupCtrl extends Controller{
 		$detail = DB::table('department')->where('id',$course_id)->select('id','name','ug','pg','dual_degree')->get();
 		if(count($detail) > 0){
 			return response(['status'=>'success','course'=>$detail[0]]);
+		}else{
+			return response(['status'=>'error']);
+		}
+	}
+
+	public function getDeptDetail(Request $request){
+		
+		$dept_id =  $request->get('dept_id');
+		$detail = DB::table('department')->where('id',$dept_id)->select('id','name','ug','pg','dual_degree')->get();
+		if(count($detail) > 0){
+			return response(['status'=>'success','dept'=>$detail[0]]);
 		}else{
 			return response(['status'=>'error']);
 		}
@@ -63,11 +72,28 @@ class AdminSetupCtrl extends Controller{
 			DB::table('department')->where('id', $data['course_id'])->update(['name' => $data['name'],'ug'=>0,'pg'=>0,'dual_degree'=>1]);
 		}
 		return response(['status'=>'success']);
+	}
+
+	public function updateDepartment(Request $request){
+		$data = $request->all();
+		DB::table('department')->where('id', $data['dept_id'])->update([
+				'name' => $data['name'],
+				'ug'=>isset($data['ug']) ? $data['ug'] : 0,
+				'pg'=>isset($data['pg']) ? $data['pg'] : 0,
+				'dual_degree'=>isset($data['dual_degree']) ? $data['dual_degree'] : 0
+			]);
+		return response(['status'=>'success','id'=>$data['dept_id'], 'name'=>$data['name'] ]);
 	}	
 
 	public function deleteCourse(Request $request){
 		$data = $request->all();
 		DB::table('department')->where('id',$data['course_id'])->delete();
+		return response(['status'=>'success']);
+	}
+
+	public function deleteDept(Request $request){
+		$data = $request->all();
+		DB::table('department')->where('id',$data['dept_id'])->delete();
 		return response(['status'=>'success']);
 	}
 
